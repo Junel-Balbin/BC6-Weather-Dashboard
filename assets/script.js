@@ -19,20 +19,34 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function fetchWeatherData(city) {
-    var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=0e3add27fe0e1ef7bc41791be0c5f865"
 
     // Fetch the current weather data
     fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-
-      })
-      .catch(error => {
-        console.error("Error fetching current weather data:", error);
+        // request was successful
+        .then(function(response) {
+          return response.json();
+        }).then(function (data) {
+          if (response.ok) {
+          response.json().then(function(data) {
+              displayWeather(data);
+              appendCitiesList();
+              var lat = data[0].lat;
+              var lon = data[0].lon;
+              getCurrentWeather(lat, lon);
+              getNextWeather(lat, lon);
+          });
+      // Error request
+      } else {
+          alert("Error: " + response.statusText);
+      }
+  })  
+      .catch(function(error) {
+        alert("Unable to fetch current weather data:");
       });
 
 
-    var forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+    var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "appid=0e3add27fe0e1ef7bc41791be0c5f865"
 
     // Fetch the 5 day forecast data
     fetch(forecastUrl)
@@ -41,7 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       })
       .catch(error => {
-
         console.error("Error fetching forecast data:", error);
       });
 
