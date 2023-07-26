@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
           response.json().then(function(data) {
               displayWeather(data);
               appendCitiesList();
-              var lat = data[0].lat;
-              var lon = data[0].lon;
+              var lat = data.coord.lat;
+              var lon = data.coord.lon;
               getCurrentWeather(lat, lon);
               getNextWeather(lat, lon);
           });
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
 
-    var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "appid=0e3add27fe0e1ef7bc41791be0c5f865"
+    var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + lat + "&lon=" + lon + "&appid=0e3add27fe0e1ef7bc41791be0c5f865"
 
     // Fetch the 5 day forecast data
     fetch(forecastUrl)
@@ -58,13 +58,43 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error fetching forecast data:", error);
       });
 
+    }
 
-
-  function updateWeatherUI(data) {
-
-      }
-
-  }
+    function displayWeather(data) {
+      var cityName = data.name;
+      var temperature = data.main.temp;
+      var weatherDescription = data.weather[0].description;
+      var iconCode = data.weather[0].icon;
+      var temperatureCelsius = (temperature - 273.15).toFixed(1);
+  
+      var weatherInfoContainer = document.createElement("div");
+      weatherInfoContainer.classList.add("weather-info");
+  
+      var cityElement = document.createElement("h2");
+      cityElement.textContent = "Weather in " + cityName;
+  
+      var temperatureElement = document.createElement("p");
+      temperatureElement.textContent = "Temperature: " + temperatureCelsius + "°C";
+  
+      var descriptionElement = document.createElement("p");
+      descriptionElement.textContent = "Description: " + weatherDescription;
+  
+      var iconElement = document.createElement("img");
+      iconElement.setAttribute(
+        "src",
+        "https://openweathermap.org/img/w/" + iconCode + ".png"
+      );
+      iconElement.setAttribute("alt", weatherDescription);
+  
+      weatherInfoContainer.appendChild(cityElement);
+      weatherInfoContainer.appendChild(temperatureElement);
+      weatherInfoContainer.appendChild(descriptionElement);
+      weatherInfoContainer.appendChild(iconElement);
+  
+      current_weather.innerHTML = "";
+      current_weather.appendChild(weatherInfoContainer);
+    }
+  
 
   search.addEventListener("submit", handleSearch);
 });
