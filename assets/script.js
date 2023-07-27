@@ -19,46 +19,36 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function fetchWeatherData(city) {
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=0e3add27fe0e1ef7bc41791be0c5f865"
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
 
     // Fetch the current weather data
     fetch(apiUrl)
-        // request was successful
-        .then(function(response) {
-          return response.json();
-        }).then(function (data) {
-          if (response.ok) {
-          response.json().then(function(data) {
-              displayWeather(data);
-              appendCitiesList();
-              var lat = data.coord.lat;
-              var lon = data.coord.lon;
-              getCurrentWeather(lat, lon);
-              getNextWeather(lat, lon);
-          });
-      // Error request
-      } else {
-          alert("Error: " + response.statusText);
-      }
-  })  
-      .catch(function(error) {
-        alert("Unable to fetch current weather data:");
-      });
-
-
-    var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + lat + "&lon=" + lon + "&appid=0e3add27fe0e1ef7bc41791be0c5f865"
-
-    // Fetch the 5 day forecast data
-    fetch(forecastUrl)
-      .then(response => response.json())
-      .then(data => {
-
+      .then(function (response) {
+        return response.json();
       })
-      .catch(error => {
-        console.error("Error fetching forecast data:", error);
-      });
+      .then(function (data) {
+        if (data.cod === 200) {
+          displayWeather(data);
+          appendCitiesList();
+          var lat = data.coord.lat;
+          var lon = data.coord.lon;
 
-    }
+          var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+
+          // Fetch the 5 day forecast data
+          fetch(forecastUrl)
+            .then(response => response.json())
+            .then(data => {
+              displayForecast(data);
+            })
+            .catch(error => {
+              console.error("Error fetching forecast data:", error);
+            });
+        } else {
+          alert("Error: " + data.message);
+        }
+      })
+  }
 
     function displayWeather(data) {
       var cityName = data.name;
@@ -95,6 +85,9 @@ document.addEventListener("DOMContentLoaded", function () {
       current_weather.appendChild(weatherInfoContainer);
     }
   
+    function displayForecast(data) {
+      // Process and display forecast data
+    }
 
   search.addEventListener("submit", handleSearch);
 });
