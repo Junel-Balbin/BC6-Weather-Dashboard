@@ -1,11 +1,12 @@
+/* Importing from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
 
-
 body {
     background-color: rgb(138, 119, 237);
 }
+
 header {
     text-align: center;
     background-color: rgb(138, 119, 237);
@@ -14,6 +15,7 @@ header {
     padding: 20px;
 }
 
+/* Styling for the search card section */
 #search_card {
     display: flex;
     align-items: center;
@@ -24,12 +26,14 @@ header {
     margin-left: 230px;
 }
 
+/* Styling for the search bar form */
 #search_bar {
     background-color: rgb(138, 119, 237);
     padding: 20px;
     font-family: Play, 'Trebuchet MS', sans-serif;
 }
 
+/* Styling for the weather info when search is fetched */
 .weather-info {
     background-color: white;
     color: black;
@@ -38,11 +42,11 @@ header {
     border-radius: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
-    width: 300%;
+    width: 250%;
     box-shadow: 10px 10px 10px -10px rgba(0, 0, 0, 1);
 }
 
-
+/* Styling for the weather card section when search is fetched */
 #weather_card {
     background-color: rgb(138, 119, 237);
     margin-top: 8px;
@@ -62,27 +66,33 @@ header {
     cursor: pointer;
 }
 
+/* Hover effect for the search button */
 #search_button:hover {
     background-color: rgb(182, 172, 231);
 }
 
+/* Hover effect for the clear button */
 #clear_button:hover {
     background-color: rgb(182, 172, 231);
 }
+
 
 li {
     cursor: pointer;
 }
 
+/* Hover effect for list items */
 li:hover {
     color: rgb(29, 18, 84); 
 }
+
 
 h2 {
     font-family: Righteous, 'Trebuchet MS', sans-serif;
     padding: 10px;
 }
 
+/* Styling for the forecast container when search is fetched */
 #forecast {
     display: flex;
     flex-wrap: wrap;
@@ -92,7 +102,9 @@ h2 {
     gap: 15px;
     justify-content: center;
 }
-  .forecast-item {
+
+/* Styling for individual forecast items when search is fetched */
+.forecast-item {
     max-width: 500px;
     border-radius: 5px;
     background-color: white;
@@ -100,9 +112,9 @@ h2 {
     box-shadow: 10px 10px 10px -10px rgba(0, 0, 0, 1);
     padding: 10px;
     margin-bottom: 10px;
-  }
-  
-/* Media Query for smaller screens */
+}
+
+/* Media Query for smaller screens for responsive design */
 @media screen and (max-width: 900px) {
     header {
         margin-top: 10px;
