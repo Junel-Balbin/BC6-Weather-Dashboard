@@ -18,6 +18,23 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchWeatherData(city);
   }
 
+  function setLocalStorage(city) {
+    if (recentSearches.indexOf(city) === -1) {
+      recentSearches.push(city);
+      localStorage.setItem("recents", JSON.stringify(recentSearches));
+    }
+  }
+
+  function appendCitiesList() {
+    search_history.innerHTML = "";
+    for (var i = recentSearches.length - 1; i >= 0; i--) {
+      var city = recentSearches[i];
+      var listItem = document.createElement("li");
+      listItem.textContent = city;
+      search_history.appendChild(listItem);
+    }
+  }
+  
   function fetchWeatherData(city) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
 
@@ -29,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(function (data) {
         if (data.cod === 200) {
           displayWeather(data);
+          setLocalStorage(city);
           appendCitiesList();
           var lat = data.coord.lat;
           var lon = data.coord.lon;
@@ -89,5 +107,6 @@ document.addEventListener("DOMContentLoaded", function () {
       // Process and display forecast data
     }
 
+  search_button.addEventListener("click", handleSearch);
   search.addEventListener("submit", handleSearch);
 });

@@ -1,0 +1,27 @@
+header {
+    text-align: center;
+    background-color: rgb(138, 119, 237);
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#search_card {
+    display: flex;
+    background-color: rgb(138, 119, 237);
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#search_bar {
+    background-color: rgb(138, 119, 237);
+    padding: 20px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#weather_card {
+    background-color: rgb(138, 119, 237);
+    margin-top: 8px;
+    color: black;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
