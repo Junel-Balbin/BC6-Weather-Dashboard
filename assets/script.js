@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
   var search_history = document.getElementById("search_history");
   var current_weather = document.getElementById("current_weather");
   var forecast = document.getElementById("forecast");
-  
+  var recentSearches = JSON.parse(localStorage.getItem("recents")) || [];
+
+
   var apiKey = "0e3add27fe0e1ef7bc41791be0c5f865";
 
   function handleSearch(event) {
@@ -14,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (city === "") {
       return;
     }
-  
+
     fetchWeatherData(city);
   }
 
@@ -31,10 +33,16 @@ document.addEventListener("DOMContentLoaded", function () {
       var city = recentSearches[i];
       var listItem = document.createElement("li");
       listItem.textContent = city;
+  
+      listItem.addEventListener("click", function (event) {
+        var clickedCity = event.target.textContent;
+        fetchWeatherData(clickedCity);
+      });
+  
       search_history.appendChild(listItem);
     }
   }
-  
+
   function fetchWeatherData(city) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
 
@@ -68,44 +76,58 @@ document.addEventListener("DOMContentLoaded", function () {
       })
   }
 
-    function displayWeather(data) {
-      var cityName = data.name;
-      var temperature = data.main.temp;
-      var weatherDescription = data.weather[0].description;
-      var iconCode = data.weather[0].icon;
-      var temperatureCelsius = (temperature - 273.15).toFixed(1);
+  function displayWeather(data) {
+    var cityName = data.name;
+    var temperature = data.main.temp;
+    var weatherDescription = data.weather[0].description;
+    var iconCode = data.weather[0].icon;
+    var humidity = data.main.humidity;
+    var windSpeed = data.wind.speed;
+    var temperatureFahrenheit = ((temperature * 9/5) - 459.67).toFixed(1);
   
-      var weatherInfoContainer = document.createElement("div");
-      weatherInfoContainer.classList.add("weather-info");
+    var weatherInfoContainer = document.createElement("div");
+    weatherInfoContainer.classList.add("weather-info");
   
-      var cityElement = document.createElement("h2");
-      cityElement.textContent = "Weather in " + cityName;
+    var cityElement = document.createElement("h2");
+    cityElement.textContent = cityName;
   
-      var temperatureElement = document.createElement("p");
-      temperatureElement.textContent = "Temperature: " + temperatureCelsius + "°C";
+    var dateElement = document.createElement("p");
+    var currentDate = new Date();
+    dateElement.textContent = currentDate.toLocaleDateString();
   
-      var descriptionElement = document.createElement("p");
-      descriptionElement.textContent = "Description: " + weatherDescription;
+    var temperatureElement = document.createElement("p");
+    temperatureElement.textContent = "Temperature: " + temperatureFahrenheit + "°F";
   
-      var iconElement = document.createElement("img");
-      iconElement.setAttribute(
-        "src",
-        "https://openweathermap.org/img/w/" + iconCode + ".png"
-      );
-      iconElement.setAttribute("alt", weatherDescription);
+    var humidityElement = document.createElement("p");
+    humidityElement.textContent = "Humidity: " + humidity + "%";
   
-      weatherInfoContainer.appendChild(cityElement);
-      weatherInfoContainer.appendChild(temperatureElement);
-      weatherInfoContainer.appendChild(descriptionElement);
-      weatherInfoContainer.appendChild(iconElement);
+    var windSpeedElement = document.createElement("p");
+    windSpeedElement.textContent = "Wind Speed: " + windSpeed + " m/s";
   
-      current_weather.innerHTML = "";
-      current_weather.appendChild(weatherInfoContainer);
-    }
+    var descriptionElement = document.createElement("p");
+    descriptionElement.textContent = "Description: " + weatherDescription;
   
-    function displayForecast(data) {
-      // Process and display forecast data
-    }
+    var iconElement = document.createElement("img");
+    iconElement.setAttribute(
+      "src",
+      "https://openweathermap.org/img/w/" + iconCode + ".png"
+    );
+    iconElement.setAttribute("alt", weatherDescription);
+  
+    weatherInfoContainer.appendChild(cityElement);
+    weatherInfoContainer.appendChild(dateElement);
+    weatherInfoContainer.appendChild(temperatureElement);
+    weatherInfoContainer.appendChild(humidityElement);
+    weatherInfoContainer.appendChild(windSpeedElement);
+    weatherInfoContainer.appendChild(descriptionElement);
+    weatherInfoContainer.appendChild(iconElement);
+  
+    current_weather.innerHTML = "";
+    current_weather.appendChild(weatherInfoContainer);
+  }
+  
+  function displayForecast(data) {
+  }
 
   search_button.addEventListener("click", handleSearch);
   search.addEventListener("submit", handleSearch);
