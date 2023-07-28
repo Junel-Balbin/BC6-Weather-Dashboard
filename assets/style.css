@@ -1,23 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
+
+
+body {
+    background-color: rgb(138, 119, 237);
+}
 header {
     text-align: center;
     background-color: rgb(138, 119, 237);
     color: white;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: Permanent Marker, 'Trebuchet MS', sans-serif;
     padding: 20px;
 }
 
 #search_card {
     display: flex;
+    align-items: center;
     background-color: rgb(138, 119, 237);
     color: white;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: Play, 'Trebuchet MS', sans-serif;
     margin-top: 10px;
+    margin-left: 230px;
 }
 
 #search_bar {
     background-color: rgb(138, 119, 237);
     padding: 20px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: Play, 'Trebuchet MS', sans-serif;
 }
 
 .weather-info {
@@ -38,7 +48,26 @@ header {
     margin-top: 8px;
     color: black;
     text-align: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: Play, 'Trebuchet MS', sans-serif;
+    display: none;
+}
+
+#search_button, #clear_button {
+    background-color: rgb(104, 80, 224); 
+    color: white;
+    font-size: 18px; 
+    padding: 2px 18px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#search_button:hover {
+    background-color: rgb(182, 172, 231);
+}
+
+#clear_button:hover {
+    background-color: rgb(182, 172, 231);
 }
 
 li {
@@ -46,10 +75,11 @@ li {
 }
 
 li:hover {
-    color: black;
+    color: rgb(29, 18, 84); 
 }
 
 h2 {
+    font-family: Righteous, 'Trebuchet MS', sans-serif;
     padding: 10px;
 }
 
@@ -72,3 +102,18 @@ h2 {
     margin-bottom: 10px;
   }
   
+/* Media Query for smaller screens */
+@media screen and (max-width: 900px) {
+    header {
+        margin-top: 10px;
+    }
+    
+    #search_card {
+        margin-left: 0;
+        flex-direction: column;
+    }
+
+    .weather-info {
+        margin-left: -100px;
+    }
+}

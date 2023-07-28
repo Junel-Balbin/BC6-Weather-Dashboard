@@ -196,6 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
       }
     }
+    document.getElementById("weather_card").style.display = "block";
   }
 
   search_button.addEventListener("click", handleSearch);
