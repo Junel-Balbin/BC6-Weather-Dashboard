@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var recentSearches = JSON.parse(localStorage.getItem("recents")) || [];
 
   // API key for OpenWeatherMap API
-  var apiKey = "0e3add27fe0e1ef7bc41791be0c5f865";
+  var apiKey = "";
 
   // Function to handle the search form submission
   function handleSearch(event) {
